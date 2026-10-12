@@ -28,7 +28,8 @@ Demonstrate an end-to-end QA workflow on one small feature (a login page):
 - Empty-field validation (both blank, username blank, password blank).
 - Minimum-length boundary validation (username ≥ 3, password ≥ 6).
 - Unknown username vs. wrong password error messages.
-- Authenticated dashboard view showing "Welcome, <username>!".
+- Authenticated dashboard view showing the welcome message, e.g. **"Welcome, admin!"**
+  (built in `app/script.js` as `"Welcome, " + username + "!"`).
 - Logout returning the user to the login form.
 - Password field masking; username trimming; Enter-key submit.
 - Basic responsive styling (plain HTML, CSS, JavaScript).
@@ -36,13 +37,13 @@ Demonstrate an end-to-end QA workflow on one small feature (a login page):
 **Automation / technology stack**
 | Technology | Version | Purpose |
 |------------|---------|---------|
-| Java | 17 | Language |
-| Maven | 3.9.x | Build & dependency management |
+| Java | 17 | Language (compiled with `release 17`) |
+| Maven | 3.9.9 | Build & dependency management |
 | Selenium WebDriver | 4.33.0 | Browser automation |
 | TestNG | 7.11.0 | Test runner, annotations, assertions |
-| Chrome / Edge | 150+ | Browsers under test |
+| Browser | Chrome 154 (primary); Edge 155 | Browsers used for the recorded run |
 
-No database, Spring Boot, or Docker is used — the project stays lightweight.
+No database (MySQL), Spring Boot, or Docker is used — the project stays lightweight.
 
 ## 3. Folder Structure
 
@@ -150,24 +151,33 @@ After a run:
 
 ## 8. Screenshots
 
-These are **real screenshots** captured from the running demo app (`docs/screenshots/`).
+These are **real screenshots** captured from the running demo app. The files live in
+`docs/screenshots/` and are embedded below with relative paths so they render on GitHub.
 
-| Login page | Invalid password error |
-|------------|------------------------|
-| ![Login page](docs/screenshots/01-login-page.png) | ![Invalid password error](docs/screenshots/02-invalid-password-error.png) |
+**1. Login page** — username and password fields with the Login button.
 
-| Dashboard after successful login |
-|----------------------------------|
-| ![Dashboard after login](docs/screenshots/03-dashboard-after-login.png) |
+![Login page with username and password fields and a Login button](docs/screenshots/01-login-page.png)
+
+**2. Invalid password error** — the "Invalid password." message after entering a wrong password.
+
+![Login form showing the Invalid password error message](docs/screenshots/02-invalid-password-error.png)
+
+**3. Dashboard after successful login** — the authenticated view showing "Welcome, admin!".
+
+![Dashboard view showing the welcome message and a Logout button](docs/screenshots/03-dashboard-after-login.png)
 
 ## 9. Dummy Demo Credentials
 
-| Username | Password |
-|----------|----------|
-| `admin` | `Admin@123` |
-| `tester` | `Test@1234` |
+These credentials are defined in `app/script.js` (`VALID_USERS`). They are **dummy values
+committed on purpose** for the demo only — they do **not** belong to any real account and
+grant no access to any real system.
 
-These are dummy values committed on purpose for the demo. They belong to no real account.
+| Username | Password | Notes |
+|----------|----------|-------|
+| `admin` | `Admin@123` | Used by the automation suite |
+| `tester` | `Test@1234` | Second demo user |
+
+Any other username/password combination is rejected by the client-side validation.
 
 ## 10. Manual Testing Coverage
 
@@ -186,18 +196,21 @@ logged using `BUG_REPORT_TEMPLATE.csv`. No backend/security testing is claimed.
 
 ## 11. Latest Test Execution Results
 
-**Manual testing** — all 15 cases confirmed **PASS** (including `TC_LOGIN_10`).
+**Manual testing** — all 15 cases in `MANUAL_TEST_CASES.csv` confirmed **PASS**.
 
-**Automation** — executed on Windows 10 with Chrome 154 (headless):
+**Automation** — from the most recent `mvn clean test` run (Windows 10, Chrome 154, headless):
 
 ```
 Tests run: 8, Failures: 0, Errors: 0, Skipped: 0
 BUILD SUCCESS
 ```
 
-See `TEST_EXECUTION_REPORT.md` for the full breakdown, which separates manual and
-automated results. This is a client-side demo, so no backend or server-side security
-testing is claimed.
+The 8 tests are **7 in `LoginTest`** (valid login, wrong password, wrong username, empty
+credentials, empty password, short password boundary, short username boundary) plus
+**1 in `LogoutTest`** (successful logout). See `TEST_EXECUTION_REPORT.md` for the full
+breakdown. This README-only update did not change or rerun the tests.
+
+This is a client-side demo, so no backend or real server-side security testing is claimed.
 
 ## 12. Known Limitations and Future Improvements
 
@@ -230,22 +243,51 @@ testing is claimed.
 | Tests fail to find elements | `app.url` points to the wrong file | Verify the URL, or leave `app.url` empty for auto-detection |
 | Need to run offline | Dependencies not cached | Run once online; afterwards Maven uses the local `~/.m2` cache |
 
-## 14. How to Upload to GitHub Safely
+## 14. Repository and How to Push Future Changes
 
-1. Confirm there are **no real credentials or secrets**. This project only ships dummy demo
-   values; a `.gitignore` already excludes `target/`, logs and `.env` files.
-2. From the project root:
+This project is already published at:
+
+**https://github.com/akshatab15/Login-Page-Testing-Automation** (public, branch `main`)
+
+The local folder is already a Git repository connected to that remote, so **do not run
+`git init` or `git remote add origin` again**. For future changes, just add, commit and push:
 
 ```powershell
-git init
-git add .
-git commit -m "Add login page manual testing and Selenium automation framework"
-git branch -M main
-git remote add origin https://github.com/akshatab15/Login-Page-Testing-Automation.git
-git push -u origin main
+# 1. Review what changed
+git status
+
+# 2. Stage only the files you changed
+git add README.md          # or: git add . for everything
+
+# 3. Commit with a clear message
+git commit -m "Update README"
+
+# 4. Push to the existing remote (no -u needed after the first push)
+git push
 ```
 
-3. Verify on GitHub that `target/` and unrelated files are **not** committed.
-4. Add a short description and topics like `selenium`, `testng`, `qa`, `manual-testing`.
+Notes:
+
+- If `git push` asks for credentials, complete the **Git Credential Manager** browser
+  sign-in once; it is then remembered.
+- Confirm `origin` points to the right URL with `git remote -v`.
+- Never commit `target/`, generated reports, browser drivers, or real secrets — `.gitignore`
+  already excludes them.
+- Re-running `git init` or adding a second remote is unnecessary and can cause confusion.
+
+## 15. Repository Description and Topics
+
+Suggested GitHub description (the "About" field):
+
+> Beginner-friendly QA portfolio project: a local demo login page with 15 manual test cases
+> (all passing) and 8 Selenium + TestNG + Maven automated tests using a Page Object Model.
+
+Suggested topics:
+
+`selenium` · `testng` · `java` · `maven` · `qa` · `manual-testing` · `automation-testing` ·
+`page-object-model` · `software-testing` · `portfolio-project`
+
+To set them manually: open the repository page, click the gear icon next to **About**, paste
+the description, and add the topics.
 
 > Do not commit browser drivers, generated reports, or any personal credentials.
