@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Login Page Automation Suite" verbose="1">
+
+  <listeners>
+    <listener class-name="com.qualitykiosk.login.listeners.TestListener" />
+  </listeners>
+
+  <test name="Login and Logout Tests">
+    <classes>
+      <class name="com.qualitykiosk.login.tests.LoginTest" />
+      <class name="com.qualitykiosk.login.tests.LogoutTest" />
+    </classes>
+  </test>
+
+</suite>

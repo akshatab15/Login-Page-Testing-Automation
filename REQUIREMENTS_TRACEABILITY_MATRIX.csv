@@ -1,0 +1,11 @@
+Requirement ID,Requirement Description,Manual Test Cases,Automated Test Method,Status
+REQ-01,The login page shall display username and password fields and a Login button,TC_LOGIN_01;TC_LOGIN_15,LoginTest.validLoginShouldOpenDashboard,Covered
+REQ-02,Valid documented credentials shall grant access to the dashboard,TC_LOGIN_01,LoginTest.validLoginShouldOpenDashboard,Covered
+REQ-03,An incorrect password shall be rejected with an error message,TC_LOGIN_02,LoginTest.invalidPasswordShouldShowError,Covered
+REQ-04,An unknown username shall be rejected with an error message,TC_LOGIN_03,LoginTest.invalidUsernameShouldShowError,Covered
+REQ-05,Empty username and password shall be rejected,TC_LOGIN_04;TC_LOGIN_05;TC_LOGIN_06,LoginTest.emptyCredentialsShouldShowError;LoginTest.emptyPasswordShouldShowError,Covered
+REQ-06,Username shorter than 3 characters shall be rejected,TC_LOGIN_07,LoginTest.shortUsernameShouldShowBoundaryError,Covered
+REQ-07,Password shorter than 6 characters shall be rejected,TC_LOGIN_09,LoginTest.shortPasswordShouldShowBoundaryError,Covered
+REQ-08,The password field shall mask typed characters,TC_LOGIN_13,N/A (manual only),Covered
+REQ-09,A logged-in user shall be able to log out and return to the login form,TC_LOGIN_14,LogoutTest.successfulLogoutShouldReturnToLoginPage,Covered
+REQ-10,The page shall be responsive on small screens,Manual responsive check (see TEST_PLAN.md section 6),N/A (manual only),Partially Covered

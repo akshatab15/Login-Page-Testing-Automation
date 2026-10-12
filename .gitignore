@@ -1,0 +1,47 @@
+# ------------------------------------------------------------------
+# Java / Maven build output
+# ------------------------------------------------------------------
+target/
+*.class
+*.jar
+*.war
+
+# ------------------------------------------------------------------
+# Test output (kept out of Git; regenerate with `mvn test`)
+# ------------------------------------------------------------------
+test-output/
+surefire-reports/
+testng-failed.xml
+
+# ------------------------------------------------------------------
+# IDE / editor files
+# ------------------------------------------------------------------
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+*.log
+
+# ------------------------------------------------------------------
+# OS junk
+# ------------------------------------------------------------------
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ------------------------------------------------------------------
+# Secrets / local overrides (never commit real credentials)
+# ------------------------------------------------------------------
+*.local.properties
+secrets.properties
+.env
+*.pem
+*.key
+
+# ------------------------------------------------------------------
+# Keep the real app screenshots that the README links to.
+# (Only generated target/screenshots are ignored, via target/ above.)
+# ------------------------------------------------------------------
+!docs/screenshots/

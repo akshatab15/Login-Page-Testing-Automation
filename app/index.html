@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QualityKiosk Demo Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+
+    <!-- ================= LOGIN VIEW ================= -->
+    <section id="login-view" class="card" aria-label="Login form">
+      <header class="card-header">
+        <h1>Demo Login</h1>
+        <p class="subtitle">Manual + Selenium automation practice app</p>
+      </header>
+
+      <form id="login-form" novalidate>
+        <div class="field">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Enter username"
+            autocomplete="off"
+            aria-describedby="form-message" />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Enter password"
+            autocomplete="off"
+            aria-describedby="form-message" />
+        </div>
+
+        <button type="submit" id="login-btn" class="btn btn-primary">Login</button>
+
+        <p id="form-message" class="message" role="alert" aria-live="polite"></p>
+      </form>
+
+      <footer class="card-footer">
+        <p class="hint">Demo credentials: <strong>admin</strong> / <strong>Admin@123</strong></p>
+      </footer>
+    </section>
+
+    <!-- ================= DASHBOARD VIEW ================= -->
+    <section id="dashboard-view" class="card hidden" aria-label="Dashboard">
+      <header class="card-header">
+        <h1 id="welcome-message">Welcome</h1>
+        <p class="subtitle">You are logged in to the demo application.</p>
+      </header>
+
+      <div class="dashboard-body">
+        <p class="status-badge success">Authenticated</p>
+        <p>This is the protected success page used to verify a successful login.</p>
+      </div>
+
+      <button type="button" id="logout-btn" class="btn btn-danger">Logout</button>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
